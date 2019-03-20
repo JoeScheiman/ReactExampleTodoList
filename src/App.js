@@ -1,28 +1,42 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Addtodo from "./AddTodo";
+import TodoList from "./TodoList";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+ 
+  constructor() {
+   super();
+   this.state = {
+     currentItemText: "Hello",
+     todos: ["Add a todo", "Remove Todos"] //TodoList: ["Add a todo" , "Remove Todos"]
+   };
+ };
+ 
+ resetAll = () => {
+   this.setState({currentItemText: "", todos: [] });
+ };
+ 
+ setText = (text) => {
+   this.setState({currentItemText: text});
+ };
+ addNew = text => {
+   const newTodos = [...this.state.todos, text];
+   this.setState({todos: newTodos});
+ }
+ render() {
+   return (
+     <div>
+       <Addtodo 
+       text = {this.state.currentItemText} 
+       setText={this.setText}
+       addNew = {this.addNew}/>
+
+       <TodoList todos={this.state.todos}/>
+       
+       <button onClick={this.resetAll}>Reset All</button>
+     </div>
+   );
+ }
 }
 
 export default App;
